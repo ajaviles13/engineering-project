@@ -1,0 +1,513 @@
+version: "1.0"
+
+metadata:
+  name: "Scalable Bookkeeping Categorization Rules"
+  description: "Default categorization taxonomy and matching rules"
+  last_updated: "2026-06-18"
+
+settings:
+  default_category: "Uncategorized:Review Needed"
+  case_sensitive: false
+  normalize_whitespace: true
+  strip_special_characters: true
+
+categories:
+
+  Income:
+
+    Sales Revenue:
+      accounting_account: "Sales Revenue"
+      tax_treatment: "income"
+
+      rules:
+        - type: keyword
+          value: "invoice payment"
+        - type: keyword
+          value: "customer payment"
+        - type: keyword
+          value: "subscription revenue"
+
+      merchants:
+        - Stripe
+        - Square
+        - Shopify
+        - PayPal
+
+    Interest Income:
+      accounting_account: "Interest Income"
+      tax_treatment: "income"
+
+      rules:
+        - type: keyword
+          value: "interest earned"
+        - type: keyword
+          value: "interest payment"
+
+  Cost of Goods Sold:
+
+    Inventory Purchases:
+      accounting_account: "Inventory Purchases"
+
+      rules:
+        - type: keyword
+          value: "inventory"
+        - type: keyword
+          value: "wholesale"
+        - type: keyword
+          value: "stock purchase"
+
+    Manufacturing Materials:
+      accounting_account: "Manufacturing Materials"
+
+      rules:
+        - type: keyword
+          value: "raw materials"
+        - type: keyword
+          value: "components"
+        - type: keyword
+          value: "fabric"
+
+    Product Shipping:
+      accounting_account: "Shipping Expense"
+
+      rules:
+        - type: keyword
+          value: "shipping label"
+        - type: keyword
+          value: "freight out"
+        - type: keyword
+          value: "fulfillment"
+
+  Office Expenses:
+
+    Office Supplies:
+      accounting_account: "Office Supplies"
+
+      merchants:
+        - Staples
+        - Office Depot
+        - OfficeMax
+
+      rules:
+        - type: keyword
+          value: "office supplies"
+        - type: keyword
+          value: "printer ink"
+        - type: keyword
+          value: "toner"
+
+    Furniture:
+      accounting_account: "Office Furniture"
+
+      rules:
+        - type: keyword
+          value: "standing desk"
+        - type: keyword
+          value: "office chair"
+        - type: keyword
+          value: "conference table"
+
+    Equipment:
+      accounting_account: "Computer Equipment"
+
+      rules:
+        - type: keyword
+          value: "laptop"
+        - type: keyword
+          value: "computer"
+        - type: keyword
+          value: "monitor"
+        - type: keyword
+          value: "printer"
+
+  Software & SaaS:
+
+    Productivity Software:
+      accounting_account: "Software Subscriptions"
+
+      merchants:
+        - Notion
+        - Asana
+        - Monday
+        - ClickUp
+
+      rules:
+        - type: keyword
+          value: "project management"
+        - type: keyword
+          value: "team collaboration"
+
+    Design Software:
+      accounting_account: "Software Subscriptions"
+
+      merchants:
+        - Adobe
+        - Canva
+        - Figma
+
+      rules:
+        - type: keyword
+          value: "graphic design"
+        - type: keyword
+          value: "creative software"
+
+    Development Tools:
+      accounting_account: "Software Subscriptions"
+
+      merchants:
+        - GitHub
+        - GitLab
+        - Vercel
+        - DigitalOcean
+
+      rules:
+        - type: keyword
+          value: "cloud hosting"
+        - type: keyword
+          value: "developer tools"
+        - type: keyword
+          value: "domain registration"
+
+    AI Tools:
+      accounting_account: "Software Subscriptions"
+
+      merchants:
+        - OpenAI
+        - Anthropic
+        - Perplexity
+        - Midjourney
+
+      rules:
+        - type: keyword
+          value: "artificial intelligence"
+        - type: keyword
+          value: "llm"
+        - type: keyword
+          value: "chatbot"
+
+  Advertising & Marketing:
+
+    Online Advertising:
+      accounting_account: "Advertising Expense"
+
+      merchants:
+        - Google Ads
+        - Meta Ads
+        - LinkedIn Ads
+        - TikTok Ads
+
+      rules:
+        - type: keyword
+          value: "advertising"
+        - type: keyword
+          value: "ppc"
+        - type: keyword
+          value: "campaign spend"
+
+    Marketing Services:
+      accounting_account: "Marketing Expense"
+
+      rules:
+        - type: keyword
+          value: "seo"
+        - type: keyword
+          value: "marketing consultant"
+        - type: keyword
+          value: "agency fee"
+
+  Travel:
+
+    Airfare:
+      accounting_account: "Travel Expense"
+
+      merchants:
+        - Delta
+        - United
+        - Southwest
+        - American Airlines
+
+      rules:
+        - type: keyword
+          value: "flight"
+        - type: keyword
+          value: "airfare"
+        - type: keyword
+          value: "airline ticket"
+
+    Lodging:
+      accounting_account: "Travel Expense"
+
+      merchants:
+        - Marriott
+        - Hilton
+        - Hyatt
+        - Airbnb
+
+      rules:
+        - type: keyword
+          value: "hotel"
+        - type: keyword
+          value: "lodging"
+        - type: keyword
+          value: "accommodation"
+
+    Rental Cars:
+      accounting_account: "Travel Expense"
+
+      merchants:
+        - Hertz
+        - Avis
+        - Enterprise
+        - Budget
+        - National
+
+      rules:
+        - type: keyword
+          value: "rental car"
+        - type: keyword
+          value: "vehicle rental"
+        - type: keyword
+          value: "car hire"
+
+  Transportation:
+
+    Rideshare:
+      accounting_account: "Transportation Expense"
+
+      merchants:
+        - Uber
+        - Lyft
+
+      rules:
+        - type: keyword
+          value: "rideshare"
+        - type: keyword
+          value: "taxi"
+
+    Fuel:
+      accounting_account: "Fuel Expense"
+
+      merchants:
+        - Shell
+        - Chevron
+        - Exxon
+        - Circle K
+
+      rules:
+        - type: keyword
+          value: "fuel"
+        - type: keyword
+          value: "gas station"
+        - type: keyword
+          value: "diesel"
+
+    Parking:
+      accounting_account: "Parking Expense"
+
+      rules:
+        - type: keyword
+          value: "parking"
+        - type: keyword
+          value: "garage"
+
+    Tolls:
+      accounting_account: "Toll Expense"
+
+      rules:
+        - type: keyword
+          value: "toll"
+        - type: keyword
+          value: "express lane"
+
+  Meals & Entertainment:
+
+    Restaurants:
+      accounting_account: "Meals Expense"
+
+      rules:
+        - type: keyword
+          value: "restaurant"
+        - type: keyword
+          value: "dining"
+
+    Coffee Shops:
+      accounting_account: "Meals Expense"
+
+      rules:
+        - type: keyword
+          value: "coffee"
+        - type: keyword
+          value: "espresso"
+        - type: keyword
+          value: "cafe"
+
+    Client Meals:
+      accounting_account: "Business Meals"
+
+      rules:
+        - type: keyword
+          value: "client lunch"
+        - type: keyword
+          value: "client dinner"
+
+  Payroll & Labor:
+
+    Employee Payroll:
+      accounting_account: "Payroll Expense"
+
+      rules:
+        - type: keyword
+          value: "salary"
+        - type: keyword
+          value: "wages"
+        - type: keyword
+          value: "payroll"
+
+    Payroll Services:
+      accounting_account: "Payroll Processing"
+
+      merchants:
+        - Gusto
+        - ADP
+        - Paychex
+        - Rippling
+
+    Contractors:
+      accounting_account: "Contract Labor"
+
+      rules:
+        - type: keyword
+          value: "1099"
+        - type: keyword
+          value: "contractor payment"
+        - type: keyword
+          value: "freelancer"
+
+  Professional Services:
+
+    Legal:
+      accounting_account: "Legal Fees"
+
+      rules:
+        - type: keyword
+          value: "attorney"
+        - type: keyword
+          value: "legal services"
+
+    Accounting:
+      accounting_account: "Accounting Fees"
+
+      rules:
+        - type: keyword
+          value: "bookkeeping"
+        - type: keyword
+          value: "tax preparation"
+        - type: keyword
+          value: "cpa"
+
+    Consulting:
+      accounting_account: "Consulting Fees"
+
+      rules:
+        - type: keyword
+          value: "consulting"
+        - type: keyword
+          value: "advisor"
+
+  Utilities:
+
+    Electricity:
+      accounting_account: "Utilities Expense"
+
+    Water:
+      accounting_account: "Utilities Expense"
+
+    Internet:
+      accounting_account: "Utilities Expense"
+
+    Mobile Phones:
+      accounting_account: "Telecommunications"
+
+  Insurance:
+
+    Business Insurance:
+      accounting_account: "Insurance Expense"
+
+    Health Insurance:
+      accounting_account: "Employee Benefits"
+
+    Vehicle Insurance:
+      accounting_account: "Insurance Expense"
+
+  Banking & Finance:
+
+    Bank Fees:
+      accounting_account: "Bank Charges"
+
+    Credit Card Fees:
+      accounting_account: "Credit Card Fees"
+
+    Merchant Processing Fees:
+      accounting_account: "Merchant Fees"
+
+    Interest Expense:
+      accounting_account: "Interest Expense"
+
+  Taxes & Government:
+
+    Sales Tax:
+      accounting_account: "Sales Tax Payable"
+
+    Payroll Taxes:
+      accounting_account: "Payroll Tax Expense"
+
+    Business Licenses:
+      accounting_account: "Licenses & Permits"
+
+  Education & Training:
+
+    Courses:
+      accounting_account: "Training Expense"
+
+    Conferences:
+      accounting_account: "Conference Expense"
+
+    Books & Publications:
+      accounting_account: "Education Expense"
+
+  Subscriptions:
+
+    Business Subscriptions:
+      accounting_account: "Subscription Expense"
+
+    Industry Memberships:
+      accounting_account: "Membership Dues"
+
+  Charitable Contributions:
+
+    Donations:
+      accounting_account: "Charitable Contributions"
+
+  Transfers:
+
+    Internal Transfers:
+      accounting_account: "Transfer"
+
+    Credit Card Payments:
+      accounting_account: "Transfer"
+
+    Loan Payments:
+      accounting_account: "Loan Liability"
+
+  Owner Activity:
+
+    Owner Draw:
+      accounting_account: "Owner Draw"
+
+    Owner Contribution:
+      accounting_account: "Owner Contribution"
+
+  Uncategorized:
+
+    Review Needed:
+      accounting_account: "Uncategorized Expense"

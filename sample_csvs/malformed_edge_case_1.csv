@@ -1,0 +1,106 @@
+DATE,DESCRIPTION,AMOUNT,CATEGORY
+,Missing date #0,100.00,Office Supplies
+13-45-2025,Invalid date #1,200,Travel
+02-30-2024,Impossible date #2,-50.25,Meals
+01-01-2025, #3,99.99,Software
+01-01-2025,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA #4,10,Marketing
+01-01-2025,"Embedded,comma #5",20,Utilities
+01-01-2025,"Embedded ""quote"" #6",30,Rent
+01-01-2025,Unicode café ☕ #7,40,Meals
+01-01-2025,"New
+Line #8",50,Travel
+01-01-2025,Tab	Character #9,60,Travel
+01-01-2025,-0 amount #10,-0.00,
+01-01-2025,Huge amount #11,9999999999999.99,Income
+01-01-2025,Tiny amount #12,0.0000001,Income
+01-01-2025,Alpha amount #13,ABC,Income
+01-01-2025,Currency amount #14,$100.00,Income
+01-01-2025,Scientific notation #15,1e9,Income
+01-01-2025,Whitespace category #16,75.00,   
+1900-01-01,Ancient date #17,10,Misc
+12-31-2099,Future date #18,10,Misc
+NULL,Literal NULL date #19,0,NULL
+,Missing date #20,100.00,Office Supplies
+13-45-2025,Invalid date #21,200,Travel
+02-30-2024,Impossible date #22,-50.25,Meals
+01-01-2025, #23,99.99,Software
+01-01-2025,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA #24,10,Marketing
+01-01-2025,"Embedded,comma #25",20,Utilities
+01-01-2025,"Embedded ""quote"" #26",30,Rent
+01-01-2025,Unicode café ☕ #27,40,Meals
+01-01-2025,"New
+Line #28",50,Travel
+01-01-2025,Tab	Character #29,60,Travel
+01-01-2025,-0 amount #30,-0.00,
+01-01-2025,Huge amount #31,9999999999999.99,Income
+01-01-2025,Tiny amount #32,0.0000001,Income
+01-01-2025,Alpha amount #33,ABC,Income
+01-01-2025,Currency amount #34,$100.00,Income
+01-01-2025,Scientific notation #35,1e9,Income
+01-01-2025,Whitespace category #36,75.00,   
+1900-01-01,Ancient date #37,10,Misc
+12-31-2099,Future date #38,10,Misc
+NULL,Literal NULL date #39,0,NULL
+,Missing date #40,100.00,Office Supplies
+13-45-2025,Invalid date #41,200,Travel
+02-30-2024,Impossible date #42,-50.25,Meals
+01-01-2025, #43,99.99,Software
+01-01-2025,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA #44,10,Marketing
+01-01-2025,"Embedded,comma #45",20,Utilities
+01-01-2025,"Embedded ""quote"" #46",30,Rent
+01-01-2025,Unicode café ☕ #47,40,Meals
+01-01-2025,"New
+Line #48",50,Travel
+01-01-2025,Tab	Character #49,60,Travel
+01-01-2025,-0 amount #50,-0.00,
+01-01-2025,Huge amount #51,9999999999999.99,Income
+01-01-2025,Tiny amount #52,0.0000001,Income
+01-01-2025,Alpha amount #53,ABC,Income
+01-01-2025,Currency amount #54,$100.00,Income
+01-01-2025,Scientific notation #55,1e9,Income
+01-01-2025,Whitespace category #56,75.00,   
+1900-01-01,Ancient date #57,10,Misc
+12-31-2099,Future date #58,10,Misc
+NULL,Literal NULL date #59,0,NULL
+,Missing date #60,100.00,Office Supplies
+13-45-2025,Invalid date #61,200,Travel
+02-30-2024,Impossible date #62,-50.25,Meals
+01-01-2025, #63,99.99,Software
+01-01-2025,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA #64,10,Marketing
+01-01-2025,"Embedded,comma #65",20,Utilities
+01-01-2025,"Embedded ""quote"" #66",30,Rent
+01-01-2025,Unicode café ☕ #67,40,Meals
+01-01-2025,"New
+Line #68",50,Travel
+01-01-2025,Tab	Character #69,60,Travel
+01-01-2025,-0 amount #70,-0.00,
+01-01-2025,Huge amount #71,9999999999999.99,Income
+01-01-2025,Tiny amount #72,0.0000001,Income
+01-01-2025,Alpha amount #73,ABC,Income
+01-01-2025,Currency amount #74,$100.00,Income
+01-01-2025,Scientific notation #75,1e9,Income
+01-01-2025,Whitespace category #76,75.00,   
+1900-01-01,Ancient date #77,10,Misc
+12-31-2099,Future date #78,10,Misc
+NULL,Literal NULL date #79,0,NULL
+,Missing date #80,100.00,Office Supplies
+13-45-2025,Invalid date #81,200,Travel
+02-30-2024,Impossible date #82,-50.25,Meals
+01-01-2025, #83,99.99,Software
+01-01-2025,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA #84,10,Marketing
+01-01-2025,"Embedded,comma #85",20,Utilities
+01-01-2025,"Embedded ""quote"" #86",30,Rent
+01-01-2025,Unicode café ☕ #87,40,Meals
+01-01-2025,"New
+Line #88",50,Travel
+01-01-2025,Tab	Character #89,60,Travel
+01-01-2025,-0 amount #90,-0.00,
+01-01-2025,Huge amount #91,9999999999999.99,Income
+01-01-2025,Tiny amount #92,0.0000001,Income
+01-01-2025,Alpha amount #93,ABC,Income
+01-01-2025,Currency amount #94,$100.00,Income
+01-01-2025,Scientific notation #95,1e9,Income
+01-01-2025,Whitespace category #96,75.00,   
+1900-01-01,Ancient date #97,10,Misc
+12-31-2099,Future date #98,10,Misc
+NULL,Literal NULL date #99,0,NULL

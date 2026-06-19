@@ -1,0 +1,19 @@
+# Backend
+backend/.bundle/
+backend/log/
+backend/tmp/
+backend/storage/
+backend/.env
+backend/config/master.key
+backend/config/credentials.yml.enc
+backend/db/cache_schema.rb
+backend/db/queue_schema.rb
+backend/db/cable_schema.rb
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# General
+.DS_Store
+*.log
