@@ -4,7 +4,7 @@
 
 A full-stack bookkeeping system built for the Soraban engineering take-home project. Features:
 - Manual + CSV transaction import
-- Rules-based + AI (Claude) auto-categorization
+- Rules-based auto-categorization
 - Statistical anomaly detection
 - Bulk actions and review dashboard
 - Designed for 1M+ transactions with keyset pagination and indexed queries
@@ -54,7 +54,7 @@ export PATH="/opt/homebrew/opt/ruby/bin:/opt/homebrew/lib/ruby/gems/3.4.0/bin:/o
 bundle exec rails server
 ```
 
-**Terminal 2 — Sidekiq (CSV imports + AI jobs)**
+**Terminal 2 — Sidekiq (CSV imports)**
 ```bash
 cd backend
 export PATH="/opt/homebrew/opt/ruby/bin:/opt/homebrew/lib/ruby/gems/3.4.0/bin:$PATH"
@@ -97,12 +97,6 @@ Rules are evaluated in **priority order** (ascending integer). First match wins.
 - `description`: contains, starts_with, ends_with, matches_regex
 - `amount`: gt, lt, gte, lte, eq
 - `date`: day_of_week, month
-
-### AI Categorization (`app/jobs/ai_categorization_job.rb`)
-- Only runs when no rule matches (rules-first, AI as fallback)
-- Uses Claude Haiku via tool use for structured JSON output
-- Minimum 0.6 confidence threshold before applying
-- Graceful degradation if `ANTHROPIC_API_KEY` is absent
 
 ### Anomaly Detection (`app/services/anomaly_detector.rb`)
 Flags stored as JSONB in `anomaly_flags` column. Four check types:
