@@ -1,88 +1,163 @@
-# Soraban Engineering Project
-The following is a take-home project for Soraban engineering candidates.
+# BookKeeper — Scalable Bookkeeping System
 
-## Submission Instructions
-- Fork the repository
-- Create a pull request to your forked repository (not the origin Soraban repository) with your project submission
-- In the pull request, include any necessary sample files and a Loom (or other video) showcasing the functionality you built and explains how the code works
-- Submit the link to your pull request
+A full-stack bookkeeping system built for the [Soraban engineering take-home project](https://github.com/Soraban/engineering-project).
 
-# **Scalable Bookkeeping System with Automated Categorization**
+**Demo walkthrough:** [Loom video](https://www.loom.com/share/9daab3f211ab4f50a91cfd8bcf326911)  
+**UI design:** [Figma](https://www.figma.com/design/VdrXNjGUB7ggU02hiqH9za/Engineering-Project?node-id=0-1)
 
-## **Objective**
+## Features
 
-Build a **minimal yet scalable bookkeeping system** with the following features:
+- **Record & import transactions** — manual entry or CSV import with malformed-data handling
+- **Bulk actions & categorization** — select multiple transactions and apply categories at once
+- **Rules-based + AI auto-categorization** — priority-ordered rules with Claude Haiku fallback
+- **Custom rules** — user-defined rules with automatic recategorization sweeps
+- **Anomaly detection** — flags duplicates, missing metadata, unusual amounts, and suspicious round values
+- **Review dashboard** — surfaces uncategorized and flagged transactions for approval or editing
+- **Scalable data layer** — keyset pagination, batch CSV imports, and indexed queries for 1M+ transactions
 
-1. **Record & Import Transactions** – Users can manually add transactions or import a CSV.
-2. **Bulk Actions & Automated Categorization** – Users can categorize multiple transactions at once, and automatically assign category (AI-based or rule based).
-3. **Anomaly Detection** – Identify and flag unusual/suspicous transactions (e.g., large amounts, duplicates, missing metadata).
-4. **Scalability & Performance Optimization** – Efficiently handle large data sets (e.g., 1m+ transactions).
-5. **User-friendly Review System** – A dashboard that highlights transactions needing review.
+## Monorepo Layout
 
-## **Tech Stack**
+```
+/
+├── backend/          # Rails 8 API-only app (port 3000)
+├── frontend/         # React 18 + Vite app (port 5173)
+├── sample_csvs/      # Sample CSV files for testing imports
+├── docker-compose.yml
+└── CLAUDE.md         # Additional dev notes for AI-assisted workflows
+```
 
-- **Backend:** Ruby on Rails (preferred), Node.js, Django, or similar.
-- **Frontend:** React (preferred) or Vue.js.
-- **Database:** PostgreSQL (preferred) or MySQL.
+## Running Locally
 
-## **Project Requirements**
+### Prerequisites
 
-### **1. Record & Import Transactions**
+- Ruby 3.4 (via Homebrew: `brew install ruby`)
+- Node 22+
+- PostgreSQL 16 (`brew install postgresql@16`)
+- Redis (recommended — required for Sidekiq CSV imports and AI jobs)
 
-- Users can **manually add transactions** (date, description, amount, category).
-- Users can **import a CSV file** containing transactions.
-- CSV parsing should handle **edge cases** (missing fields, malformed data, duplicates).
+### Setup
 
-### **2. Bulk Actions & Rule-based Categorization**
+```bash
+# Start PostgreSQL
+brew services start postgresql@16
 
-- Users can **select multiple transactions** and apply bulk categorization.
-- Users can create **rules** like:
-    - “If the description contains ‘Amazon’, categorize as ‘Shopping’.”
-    - “If amount > $1000, flag as ‘High Value’.”
-- **Rules should apply automatically** when new transactions are added.
+# Backend setup
+cd backend
+bundle install
+bundle exec rails db:create db:migrate db:seed
+# Seeds demo@bookkeeping.com / password123 + 50k transactions
 
-### **3. Anomaly Detection & Fraud Prevention (Challenging Part)**
+# Frontend setup
+cd ../frontend
+npm install
+```
 
-- Identify transactions that are:
-    - **Unusual in amount** compared to past user behavior.
-    - **Potential duplicates** (same amount, date, with same descriptions).
-    - **Incomplete/missing metadata** (e.g., description missing).
-- Flag these anomalies and display them on the **Review Dashboard (Step 5)**
+### Running
 
-### **4. Scalability & Performance Optimization**
+**Terminal 1 — Rails API (port 3000)**
 
-- Your system should handle **1m+ transactions efficiently**.
-- Consider **indexing, caching, or batch processing** for performance.
+```bash
+cd backend
+export PATH="/opt/homebrew/opt/ruby/bin:/opt/homebrew/lib/ruby/gems/3.4.0/bin:/opt/homebrew/opt/postgresql@16/bin:$PATH"
+bundle exec rails server
+```
 
-### **5. Review System & UX (Final Challenge)**
+**Terminal 2 — Sidekiq (CSV imports + AI jobs)**
 
-- A simple **dashboard** that highlights:
-    - **Uncategorized transactions** needing user review.
-    - **Flagged anomalies** requiring manual verification.
-- Users should be able to **approve, edit, or delete** flagged transactions.
+```bash
+cd backend
+export PATH="/opt/homebrew/opt/ruby/bin:/opt/homebrew/lib/ruby/gems/3.4.0/bin:$PATH"
+bundle exec sidekiq -C config/sidekiq.yml
+```
 
-## **Bonus Challenges (For the Overachievers)**
+**Terminal 3 — Frontend (port 5173)**
 
-1. **Basic API for Transactions** – Expose a REST API for CRUD operations.
-2. **Real-time Anomaly Detection** – Use WebSockets or polling for updates.
-3. **Graph-based Spending Summary** – Show user spending trends.
+```bash
+cd frontend
+npm run dev
+```
 
-## **What We’re Evaluating**
+Open [http://localhost:5173](http://localhost:5173) and log in with `demo@bookkeeping.com` / `password123`.
 
-✅ **Code Quality & Architecture** – Clean, modular, and scalable.
+### Environment Variables
 
-✅ **Performance & Efficiency** – Handles large datasets without slowdowns.
+Create `backend/.env`:
 
-✅ **Complex Logic Implementation** – Anomaly detection & rules engine.
+```
+ANTHROPIC_API_KEY=sk-ant-...    # optional — AI categorization degrades gracefully without it
+DEVISE_JWT_SECRET_KEY=...       # run: bundle exec rails secret
+REDIS_URL=redis://localhost:6379/0
+DATABASE_URL=...                # optional, defaults to localhost bookkeeping_development
+FRONTEND_URL=http://localhost:5173
+```
 
-✅ **Good UX for Complex Actions** – Well-designed transaction review.
+## Sample CSV Files
 
-✅ **AI Resistance** – Requires thoughtful **business logic, rule handling, and anomaly detection**, which AI struggles to generate effectively.
+| File | Purpose |
+|------|---------|
+| `sample_csvs/malformed_edge_case_1.csv` | Missing fields, bad dates, invalid amounts |
+| `sample_csvs/malformed_edge_case_2.csv` | Duplicates, empty rows, mixed formatting |
+| `sample_csvs/large_5000.csv` | 5,000-row import for quick performance testing |
+| `sample_csvs/large_500000.csv` | 500,000-row import for large-scale testing |
+| `sample_csvs/large_import.py` | Script to regenerate the 5k-row sample CSV |
 
-✅ **Problem-Solving Skills** – Ability to balance features, scalability, and performance.
+## Running Tests
 
-## Similar Products Examples for Inspiration
+```bash
+# Backend
+cd backend && bundle exec rspec
 
-- Kick.co
-- Quickbooks Online
-- Xero
+# Frontend (type check + production build)
+cd frontend && npm run build
+```
+
+## Architecture
+
+### Rules Engine (`backend/app/services/rules_engine.rb`)
+
+Rules are evaluated in **priority order** (ascending integer). First match wins. Condition types:
+
+- `description`: contains, starts_with, ends_with, matches_regex
+- `amount`: gt, lt, gte, lte, eq
+- `date`: day_of_week, month
+
+A starter rule set ships in `backend/config/rule_set_starter.yaml`.
+
+### AI Categorization (`backend/app/jobs/ai_categorization_job.rb`)
+
+- Runs only when no rule matches (rules-first, AI as fallback)
+- Uses Claude Haiku via tool use for structured JSON output
+- Minimum 0.6 confidence threshold before applying
+- Graceful degradation if `ANTHROPIC_API_KEY` is absent
+
+### Anomaly Detection (`backend/app/services/anomaly_detector.rb`)
+
+Flags are stored as JSONB in the `anomaly_flags` column:
+
+- `missing_description` — blank or nil description
+- `duplicate` — same user, date, amount, and description within 24h
+- `unusual_amount` — exceeds mean + 3σ for the user's category (requires 10+ data points)
+- `suspicious_round` — amount divisible by 1000 and greater than $5,000
+
+### Performance
+
+- **Keyset pagination** (cursor-based) instead of OFFSET — O(log n) regardless of page depth
+- **`insert_all`** for CSV batch imports — no N+1, no callbacks overhead
+- **GIN index** on `description` for trigram text search
+- **Partial index** on `status='flagged'` for fast review queue queries
+- **Redis cache** for dashboard stats (5 min TTL) and user anomaly stats (1h TTL)
+
+## API
+
+REST API under `/api/v1/` with JWT authentication (Devise + devise-jwt):
+
+- Transactions CRUD, bulk categorize, bulk approve
+- CSV import with async processing via Sidekiq
+- Rules and rule sets management
+- Dashboard stats and review queue
+- Recategorization status polling
+
+## Tech Stack
+
+- **Backend:** Ruby on Rails 8 (API-only), PostgreSQL, Sidekiq, Redis
+- **Frontend:** React 18, TypeScript, Vite, TanStack Query, Tailwind CSS, Recharts
