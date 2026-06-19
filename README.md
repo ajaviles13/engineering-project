@@ -3,7 +3,7 @@
 A full-stack bookkeeping system built for the [Soraban engineering take-home project](https://github.com/Soraban/engineering-project).
 
 **Demo walkthrough:** [Loom video](https://www.loom.com/share/9daab3f211ab4f50a91cfd8bcf326911)  
-**UI design:** [Figma](https://www.figma.com/design/VdrXNjGUB7ggU02hiqH9za/Engineering-Project?node-id=0-1)
+**Figma Walkthrough:** [Figma](https://www.figma.com/design/VdrXNjGUB7ggU02hiqH9za/Engineering-Project?node-id=0-1)
 
 ## Features
 
